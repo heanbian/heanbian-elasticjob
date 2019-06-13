@@ -26,34 +26,34 @@ import com.dangdang.ddframe.job.reg.zookeeper.ZookeeperRegistryCenter;
 @Configuration
 public class ElasticSimpleJobClientConfiguration {
 
-	@Value("${dgg.elastic.simple.job.client.zookeeper-node:}")
+	@Value("${heanbian.elastic.simple.job.client.zookeeper-node:}")
 	private String zookeeperNode;
 
-	@Value("${dgg.elastic.simple.job.client.namespace:}")
+	@Value("${heanbian.elastic.simple.job.client.namespace:}")
 	private String namespace;
 
-	@Value("${dgg.elastic.simple.job.client.zookeeper-token:}")
+	@Value("${heanbian.elastic.simple.job.client.zookeeper-token:}")
 	private String zookeeperToken;
 
-	@Value("${dgg.elastic.simple.job.client.session-timeout-milliseconds:60000}")
+	@Value("${heanbian.elastic.simple.job.client.session-timeout-milliseconds:60000}")
 	private int sessionTimeoutMilliseconds;
 
-	@Value("${dgg.elastic.simple.job.client.connection-timeout-milliseconds:15000}")
+	@Value("${heanbian.elastic.simple.job.client.connection-timeout-milliseconds:15000}")
 	private int connectionTimeoutMilliseconds;
 
-	@Value("${dgg.elastic.simple.job.client.base-sleep-time-milliseconds:3000}")
+	@Value("${heanbian.elastic.simple.job.client.base-sleep-time-milliseconds:3000}")
 	private int baseSleepTimeMilliseconds;
 
-	@Value("${dgg.elastic.simple.job.client.max-sleep-time-milliseconds:3000}")
+	@Value("${heanbian.elastic.simple.job.client.max-sleep-time-milliseconds:3000}")
 	private int maxSleepTimeMilliseconds;
 
-	@Value("${dgg.elastic.simple.job.client.max-retry:10}")
+	@Value("${heanbian.elastic.simple.job.client.max-retry:10}")
 	private int maxRetry;
 
-	@Value("${dgg.elastic.simple.job.client.started-timeout-milliseconds:15000}")
+	@Value("${heanbian.elastic.simple.job.client.started-timeout-milliseconds:15000}")
 	private long startedTimeoutMilliseconds;
 
-	@Value("${dgg.elastic.simple.job.client.completed-timeout-milliseconds:15000}")
+	@Value("${heanbian.elastic.simple.job.client.completed-timeout-milliseconds:15000}")
 	private long completedTimeoutMilliseconds;
 
 	@Autowired
@@ -61,8 +61,8 @@ public class ElasticSimpleJobClientConfiguration {
 
 	@PostConstruct
 	public void init() {
-		Objects.requireNonNull(zookeeperNode, "'dgg.elastic.simple.job.client.zookeeper-node' must not be null");
-		Objects.requireNonNull(namespace, "'dgg.elastic.simple.job.client.namespace' must not be null");
+		Objects.requireNonNull(zookeeperNode, "'heanbian.elastic.simple.job.client.zookeeper-node' must not be null");
+		Objects.requireNonNull(namespace, "'heanbian.elastic.simple.job.client.namespace' must not be null");
 
 		ZookeeperConfiguration config = new ZookeeperConfiguration(zookeeperNode, namespace);
 		config.setMaxRetries(maxRetry);
