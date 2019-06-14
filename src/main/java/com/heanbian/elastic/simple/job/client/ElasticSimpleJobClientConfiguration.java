@@ -29,7 +29,7 @@ public class ElasticSimpleJobClientConfiguration {
 	@Value("${heanbian.elastic.simple.job.client.zookeeper-node:}")
 	private String zookeeperNode;
 
-	@Value("${heanbian.elastic.simple.job.client.namespace:}")
+	@Value("${heanbian.elastic.simple.job.client.zookeeper-namespace:}")
 	private String namespace;
 
 	@Value("${heanbian.elastic.simple.job.client.zookeeper-token:}")
@@ -62,7 +62,7 @@ public class ElasticSimpleJobClientConfiguration {
 	@PostConstruct
 	public void init() {
 		Objects.requireNonNull(zookeeperNode, "'heanbian.elastic.simple.job.client.zookeeper-node' must not be null");
-		Objects.requireNonNull(namespace, "'heanbian.elastic.simple.job.client.namespace' must not be null");
+		Objects.requireNonNull(namespace, "'heanbian.elastic.simple.job.client.zookeeper-namespace' must not be null");
 
 		ZookeeperConfiguration config = new ZookeeperConfiguration(zookeeperNode, namespace);
 		config.setMaxRetries(maxRetry);
@@ -88,7 +88,7 @@ public class ElasticSimpleJobClientConfiguration {
 					simpleJob.getClass().getCanonicalName());
 
 			LiteJobConfiguration liteJobConfiguration = LiteJobConfiguration.newBuilder(simpleJobConfiguration)
-					.overwrite(true).build();
+					.overwrite(annotation.overwrite()).build();
 
 			String dataSource = annotation.dataSource();
 			if (StringUtils.isNotBlank(dataSource)) {
