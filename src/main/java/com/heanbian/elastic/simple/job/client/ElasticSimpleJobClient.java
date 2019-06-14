@@ -27,7 +27,7 @@ public @interface ElasticSimpleJobClient {
 
 	public abstract String shardingItemParameters() default "";
 
-	public abstract String jobParameter() default "dataSource";
+	public abstract String jobParameter() default "";
 
 	public abstract String dataSource() default "";
 

@@ -81,9 +81,10 @@ public class ElasticSimpleJobClientConfiguration {
 			ElasticSimpleJobClient annotation = simpleJob.getClass().getAnnotation(ElasticSimpleJobClient.class);
 
 			String cron = StringUtils.defaultIfBlank(annotation.cron(), annotation.value());
+			String jobName = StringUtils.defaultIfBlank(annotation.jobName(), simpleJob.getClass().getName());
+
 			SimpleJobConfiguration simpleJobConfiguration = new SimpleJobConfiguration(
-					JobCoreConfiguration
-							.newBuilder(simpleJob.getClass().getName(), cron, annotation.shardingTotalCount())
+					JobCoreConfiguration.newBuilder(jobName, cron, annotation.shardingTotalCount())
 							.shardingItemParameters(annotation.shardingItemParameters()).build(),
 					simpleJob.getClass().getCanonicalName());
 
@@ -100,10 +101,11 @@ public class ElasticSimpleJobClientConfiguration {
 				DataSource ds = (DataSource) context.getBean(dataSource);
 				JobEventRdbConfiguration jobEventRdbConfiguration = new JobEventRdbConfiguration(ds);
 				SpringJobScheduler jobScheduler = new SpringJobScheduler(simpleJob, registry, liteJobConfiguration,
-						jobEventRdbConfiguration);
+						jobEventRdbConfiguration, getElasticSimpleJobListener());
 				jobScheduler.init();
 			} else {
-				SpringJobScheduler jobScheduler = new SpringJobScheduler(simpleJob, registry, liteJobConfiguration);
+				SpringJobScheduler jobScheduler = new SpringJobScheduler(simpleJob, registry, liteJobConfiguration,
+						getElasticSimpleJobListener());
 				jobScheduler.init();
 			}
 		}
