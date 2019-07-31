@@ -1,4 +1,4 @@
-package com.heanbian.elastic.simple.job.client;
+package com.heanbian.elastic.job.client;
 
 import java.util.Map;
 import java.util.Objects;
@@ -24,36 +24,36 @@ import com.dangdang.ddframe.job.reg.zookeeper.ZookeeperConfiguration;
 import com.dangdang.ddframe.job.reg.zookeeper.ZookeeperRegistryCenter;
 
 @Configuration
-public class ElasticSimpleJobClientConfiguration {
+public class ElasticJobConfiguration {
 
-	@Value("${heanbian.elastic.simple.job.client.zookeeper-node:}")
-	private String zookeeperNode;
+	@Value("${elastic.job.client.zookeeper-nodes:}")
+	private String zookeeperNodes;
 
-	@Value("${heanbian.elastic.simple.job.client.zookeeper-namespace:}")
+	@Value("${elastic.job.client.zookeeper-namespace:}")
 	private String namespace;
 
-	@Value("${heanbian.elastic.simple.job.client.zookeeper-token:}")
+	@Value("${elastic.job.client.zookeeper-token:}")
 	private String zookeeperToken;
 
-	@Value("${heanbian.elastic.simple.job.client.session-timeout-milliseconds:60000}")
+	@Value("${elastic.job.client.session-timeout-milliseconds:60000}")
 	private int sessionTimeoutMilliseconds;
 
-	@Value("${heanbian.elastic.simple.job.client.connection-timeout-milliseconds:15000}")
+	@Value("${elastic.job.client.connection-timeout-milliseconds:15000}")
 	private int connectionTimeoutMilliseconds;
 
-	@Value("${heanbian.elastic.simple.job.client.base-sleep-time-milliseconds:3000}")
+	@Value("${elastic.job.client.base-sleep-time-milliseconds:3000}")
 	private int baseSleepTimeMilliseconds;
 
-	@Value("${heanbian.elastic.simple.job.client.max-sleep-time-milliseconds:3000}")
+	@Value("${elastic.job.client.max-sleep-time-milliseconds:3000}")
 	private int maxSleepTimeMilliseconds;
 
-	@Value("${heanbian.elastic.simple.job.client.max-retry:10}")
+	@Value("${elastic.job.client.max-retry:10}")
 	private int maxRetry;
 
-	@Value("${heanbian.elastic.simple.job.client.started-timeout-milliseconds:15000}")
+	@Value("${elastic.job.client.started-timeout-milliseconds:15000}")
 	private long startedTimeoutMilliseconds;
 
-	@Value("${heanbian.elastic.simple.job.client.completed-timeout-milliseconds:15000}")
+	@Value("${elastic.job.client.completed-timeout-milliseconds:15000}")
 	private long completedTimeoutMilliseconds;
 
 	@Autowired
@@ -61,10 +61,10 @@ public class ElasticSimpleJobClientConfiguration {
 
 	@PostConstruct
 	public void init() {
-		Objects.requireNonNull(zookeeperNode, "'heanbian.elastic.simple.job.client.zookeeper-node' must not be null");
-		Objects.requireNonNull(namespace, "'heanbian.elastic.simple.job.client.zookeeper-namespace' must not be null");
+		Objects.requireNonNull(zookeeperNodes, "elastic.job.client.zookeeper-nodes must be set");
+		Objects.requireNonNull(namespace, "elastic.job.client.zookeeper-namespace must be set");
 
-		ZookeeperConfiguration config = new ZookeeperConfiguration(zookeeperNode, namespace);
+		ZookeeperConfiguration config = new ZookeeperConfiguration(zookeeperNodes, namespace);
 		config.setMaxRetries(maxRetry);
 		config.setDigest(zookeeperToken);
 		config.setBaseSleepTimeMilliseconds(baseSleepTimeMilliseconds);
@@ -78,7 +78,10 @@ public class ElasticSimpleJobClientConfiguration {
 		Map<String, SimpleJob> map = context.getBeansOfType(SimpleJob.class);
 		for (Map.Entry<String, SimpleJob> entry : map.entrySet()) {
 			SimpleJob simpleJob = entry.getValue();
-			ElasticSimpleJobClient annotation = simpleJob.getClass().getAnnotation(ElasticSimpleJobClient.class);
+			ElasticJobClient annotation = simpleJob.getClass().getAnnotation(ElasticJobClient.class);
+			if (annotation == null) {
+				continue;
+			}
 
 			String cron = StringUtils.defaultIfBlank(annotation.cron(), annotation.value());
 			String jobName = StringUtils.defaultIfBlank(annotation.jobName(), simpleJob.getClass().getName());
@@ -93,9 +96,8 @@ public class ElasticSimpleJobClientConfiguration {
 
 			String dataSource = annotation.dataSource();
 			if (StringUtils.isNotBlank(dataSource)) {
-
 				if (!context.containsBean(dataSource)) {
-					throw new RuntimeException("beanName '" + dataSource + "' does not exist");
+					throw new RuntimeException("beanName " + dataSource + " does not found");
 				}
 
 				DataSource ds = (DataSource) context.getBean(dataSource);
@@ -113,87 +115,7 @@ public class ElasticSimpleJobClientConfiguration {
 
 	@Bean
 	public ElasticJobListener getElasticSimpleJobListener() {
-		return new ElasticSimpleJobClientListener(startedTimeoutMilliseconds, completedTimeoutMilliseconds);
-	}
-
-	public String getZookeeperNode() {
-		return zookeeperNode;
-	}
-
-	public void setZookeeperNode(String zookeeperNode) {
-		this.zookeeperNode = zookeeperNode;
-	}
-
-	public String getNamespace() {
-		return namespace;
-	}
-
-	public void setNamespace(String namespace) {
-		this.namespace = namespace;
-	}
-
-	public String getZookeeperToken() {
-		return zookeeperToken;
-	}
-
-	public void setZookeeperToken(String zookeeperToken) {
-		this.zookeeperToken = zookeeperToken;
-	}
-
-	public int getSessionTimeoutMilliseconds() {
-		return sessionTimeoutMilliseconds;
-	}
-
-	public void setSessionTimeoutMilliseconds(int sessionTimeoutMilliseconds) {
-		this.sessionTimeoutMilliseconds = sessionTimeoutMilliseconds;
-	}
-
-	public int getConnectionTimeoutMilliseconds() {
-		return connectionTimeoutMilliseconds;
-	}
-
-	public void setConnectionTimeoutMilliseconds(int connectionTimeoutMilliseconds) {
-		this.connectionTimeoutMilliseconds = connectionTimeoutMilliseconds;
-	}
-
-	public int getBaseSleepTimeMilliseconds() {
-		return baseSleepTimeMilliseconds;
-	}
-
-	public void setBaseSleepTimeMilliseconds(int baseSleepTimeMilliseconds) {
-		this.baseSleepTimeMilliseconds = baseSleepTimeMilliseconds;
-	}
-
-	public int getMaxSleepTimeMilliseconds() {
-		return maxSleepTimeMilliseconds;
-	}
-
-	public void setMaxSleepTimeMilliseconds(int maxSleepTimeMilliseconds) {
-		this.maxSleepTimeMilliseconds = maxSleepTimeMilliseconds;
-	}
-
-	public int getMaxRetry() {
-		return maxRetry;
-	}
-
-	public void setMaxRetry(int maxRetry) {
-		this.maxRetry = maxRetry;
-	}
-
-	public long getStartedTimeoutMilliseconds() {
-		return startedTimeoutMilliseconds;
-	}
-
-	public void setStartedTimeoutMilliseconds(long startedTimeoutMilliseconds) {
-		this.startedTimeoutMilliseconds = startedTimeoutMilliseconds;
-	}
-
-	public long getCompletedTimeoutMilliseconds() {
-		return completedTimeoutMilliseconds;
-	}
-
-	public void setCompletedTimeoutMilliseconds(long completedTimeoutMilliseconds) {
-		this.completedTimeoutMilliseconds = completedTimeoutMilliseconds;
+		return new ElasticJobClientListener(startedTimeoutMilliseconds, completedTimeoutMilliseconds);
 	}
 
 }

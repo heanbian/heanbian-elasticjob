@@ -1,4 +1,4 @@
-package com.heanbian.elastic.simple.job.client;
+package com.heanbian.elastic.job.client;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Import;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
+@Import(ElasticJobConfiguration.class)
 @Documented
-@Import({ ElasticSimpleJobClientConfiguration.class })
-public @interface EnableElasticSimpleJobClient {
+public @interface EnableElasticJob {
 }

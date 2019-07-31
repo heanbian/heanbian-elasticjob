@@ -1,4 +1,4 @@
-package com.heanbian.elastic.simple.job.client;
+package com.heanbian.elastic.job.client;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -11,7 +11,7 @@ import org.springframework.core.annotation.AliasFor;
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface ElasticSimpleJobClient {
+public @interface ElasticJobClient {
 
 	@AliasFor("cron")
 	public abstract String value() default "";
