@@ -12,5 +12,4 @@ import org.springframework.context.annotation.Import;
 @Retention(RetentionPolicy.RUNTIME)
 @Import(ElasticJobConfiguration.class)
 @Documented
-public @interface EnableElasticJob {
-}
+public @interface EnableElasticJob {}

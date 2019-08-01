@@ -3,10 +3,10 @@ package com.heanbian.elastic.job.client;
 import java.util.Map;
 import java.util.Objects;
 
-import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -24,7 +24,7 @@ import com.dangdang.ddframe.job.reg.zookeeper.ZookeeperConfiguration;
 import com.dangdang.ddframe.job.reg.zookeeper.ZookeeperRegistryCenter;
 
 @Configuration
-public class ElasticJobConfiguration {
+public class ElasticJobConfiguration implements InitializingBean {
 
 	@Value("${elastic.job.client.zookeeper-nodes:}")
 	private String zookeeperNodes;
@@ -59,7 +59,6 @@ public class ElasticJobConfiguration {
 	@Autowired
 	private ApplicationContext context;
 
-	@PostConstruct
 	public void init() {
 		Objects.requireNonNull(zookeeperNodes, "elastic.job.client.zookeeper-nodes must be set");
 		Objects.requireNonNull(namespace, "elastic.job.client.zookeeper-namespace must be set");
@@ -116,6 +115,11 @@ public class ElasticJobConfiguration {
 	@Bean
 	public ElasticJobListener getElasticSimpleJobListener() {
 		return new ElasticJobClientListener(startedTimeoutMilliseconds, completedTimeoutMilliseconds);
+	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		init();
 	}
 
 }
