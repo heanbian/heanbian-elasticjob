@@ -96,7 +96,7 @@ public class ElasticJobConfiguration implements InitializingBean {
 			String dataSource = annotation.dataSource();
 			if (StringUtils.isNotBlank(dataSource)) {
 				if (!context.containsBean(dataSource)) {
-					throw new RuntimeException("beanName " + dataSource + " does not found");
+					throw new RuntimeException("beanName " + dataSource + " not found");
 				}
 
 				DataSource ds = (DataSource) context.getBean(dataSource);
