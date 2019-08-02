@@ -29,9 +29,5 @@ public @interface ElasticJobClient {
 
 	String dataSource() default "";
 
-	String description() default "";
-
-	boolean disabled() default false;
-
 	boolean overwrite() default true;
 }
