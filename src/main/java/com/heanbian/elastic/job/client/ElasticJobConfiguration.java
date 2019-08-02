@@ -83,6 +83,10 @@ public class ElasticJobConfiguration implements InitializingBean {
 			}
 
 			String cron = StringUtils.defaultIfBlank(annotation.cron(), annotation.value());
+			if (StringUtils.isBlank(cron)) {
+				continue;
+			}
+
 			String jobName = StringUtils.defaultIfBlank(annotation.jobName(), simpleJob.getClass().getName());
 
 			SimpleJobConfiguration simpleJobConfiguration = new SimpleJobConfiguration(
