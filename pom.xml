@@ -6,7 +6,7 @@
 
 	<groupId>com.heanbian</groupId>
 	<artifactId>heanbian-elastic-job-client</artifactId>
-	<version>1.0.2</version>
+	<version>11.0.0</version>
 	<packaging>jar</packaging>
 
 	<description>基于当当网Elastic-Job-Lite进行扩展</description>
