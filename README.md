@@ -27,6 +27,10 @@ heanbian:
     zookeeper-namespace: elasticjob_fgFDGdfg45435SDFsfb #自定义
 ```
 
+Spring Boot 启动类添加注解：
+
+`@EnableElasticJob`
+
 Java代码片段：
 
 ```

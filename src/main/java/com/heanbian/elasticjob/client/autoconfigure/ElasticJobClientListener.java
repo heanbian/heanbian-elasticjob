@@ -1,4 +1,4 @@
-package com.heanbian.elasticjob.client;
+package com.heanbian.elasticjob.client.autoconfigure;
 
 import com.dangdang.ddframe.job.executor.ShardingContexts;
 import com.dangdang.ddframe.job.lite.api.listener.AbstractDistributeOnceElasticJobListener;

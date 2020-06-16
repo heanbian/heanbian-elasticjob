@@ -7,10 +7,8 @@ import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import com.dangdang.ddframe.job.api.simple.SimpleJob;
 import com.dangdang.ddframe.job.config.JobCoreConfiguration;
@@ -22,21 +20,15 @@ import com.dangdang.ddframe.job.lite.spring.api.SpringJobScheduler;
 import com.dangdang.ddframe.job.reg.zookeeper.ZookeeperConfiguration;
 import com.dangdang.ddframe.job.reg.zookeeper.ZookeeperRegistryCenter;
 import com.heanbian.elasticjob.client.ElasticJobClient;
-import com.heanbian.elasticjob.client.ElasticJobClientListener;
 
 /**
  * 
  * @author 马洪
  *
  */
-@Configuration
-@EnableConfigurationProperties(ElasticJobProperties.class)
 public class ElasticJobAutoConfiguration {
 
-	@Autowired
-	private ApplicationContext context;
-
-	public ElasticJobAutoConfiguration(ElasticJobProperties p) {
+	public ElasticJobAutoConfiguration(@Autowired ApplicationContext context, @Autowired ElasticJobProperties p) {
 		Objects.requireNonNull(p.getZookeeperNodes(), "heanbian.elasticjob.zookeeper-nodes must not be null");
 		Objects.requireNonNull(p.getZookeeperNamespace(), "heanbian.elasticjob.zookeeper-namespace must not be null");
 
