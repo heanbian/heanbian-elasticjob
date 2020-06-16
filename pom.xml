@@ -6,16 +6,13 @@
 
 	<groupId>com.heanbian</groupId>
 	<artifactId>heanbian-elastic-job-client</artifactId>
-	<version>11.0.0</version>
+	<version>11.1.0</version>
 	<packaging>jar</packaging>
 
-	<description>基于当当网Elastic-Job-Lite进行扩展</description>
-
-	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>9</version>
-	</parent>
+	<name>heanbian-elastic-job-client</name>
+	<url>https://github.com/heanbian/heanbian-elasticjob</url>
+	<description>Heanbian elastic job client components.</description>
+	<inceptionYear>2019</inceptionYear>
 
 	<licenses>
 		<license>
@@ -39,19 +36,131 @@
 	</developers>
 
 	<scm>
-		<connection>scm:git:https://github.com/heanbian/heanbian-elastic-simple-job-client.git</connection>
-		<developerConnection>scm:git:https://github.com/heanbian/heanbian-elastic-simple-job-client.git</developerConnection>
-		<url>https://github.com/heanbian/heanbian-elastic-simple-job-client</url>
+		<connection>scm:git:https://github.com/heanbian/heanbian-elasticjob.git</connection>
+		<developerConnection>scm:git:https://github.com/heanbian/heanbian-elasticjob.git</developerConnection>
+		<url>https://github.com/heanbian/heanbian-elasticjob</url>
 	</scm>
 
 	<issueManagement>
 		<system>Github</system>
-		<url>https://github.com/heanbian/heanbian-elastic-simple-job-client/issues</url>
+		<url>https://github.com/heanbian/heanbian-elasticjob/issues</url>
 	</issueManagement>
+
+	<repositories>
+		<repository>
+			<id>sonatype-nexus-snapshots</id>
+			<name>Sonatype Nexus Snapshots</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<profiles>
+		<profile>
+			<id>sonatype-oss-release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>3.8.1</version>
+						<configuration>
+							<encoding>UTF-8</encoding>
+							<source>11</source>
+							<target>11</target>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>3.2.1</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>3.2.0</version>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>3.0.0-M3</version>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>3.0.0-M1</version>
+					<configuration>
+						<mavenExecutorId>forked-path</mavenExecutorId>
+						<useReleaseProfile>false</useReleaseProfile>
+						<arguments>${arguments} -Psonatype-oss-release</arguments>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>sonatype-nexus-snapshots</id>
+			<name>Sonatype Nexus Snapshots</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>sonatype-nexus-staging</id>
+			<name>Nexus Release Repository</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.context.version>5.1.9.RELEASE</spring.context.version>
+		<spring-boot.version>2.3.1.RELEASE</spring-boot.version>
+		<arguments />
 	</properties>
 
 	<dependencies>
@@ -61,10 +170,14 @@
 			<version>2.1.5</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>${spring.context.version}</version>
-			<scope>provided</scope>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-autoconfigure</artifactId>
+			<version>${spring-boot.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<version>${spring-boot.version}</version>
 		</dependency>
 	</dependencies>
 </project>
