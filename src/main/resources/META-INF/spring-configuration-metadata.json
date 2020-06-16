@@ -1,0 +1,8 @@
+{
+	"properties": [
+		{
+			"name": "heanbian.elasticjob",
+			"type": "com.heanbian.elasticjob.client.autoconfigure.ElasticJobProperties"
+		}
+	]
+}
