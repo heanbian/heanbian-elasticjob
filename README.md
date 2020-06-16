@@ -34,7 +34,7 @@ Spring Boot 启动类添加注解：
 Java代码片段：
 
 ```
-@ElasticJobClient(cron = "10 * * * * ?")
+@ElasticJobClient(cron = "*/10 * * * * ?")
 @Component
 public class TestTask implements SimpleJob {
 
