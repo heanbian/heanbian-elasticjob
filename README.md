@@ -1,5 +1,7 @@
 # heanbian-elasticjob
 
+说明：基于ElasticJob升级版
+
 ## 前提条件
 
 JDK11+
