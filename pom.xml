@@ -11,7 +11,7 @@
 
 	<name>heanbian-elastic-job-client</name>
 	<url>https://github.com/heanbian/heanbian-elasticjob</url>
-	<description>Heanbian elastic job client components.</description>
+	<description>Heanbian elastic job client component.</description>
 	<inceptionYear>2019</inceptionYear>
 
 	<licenses>
