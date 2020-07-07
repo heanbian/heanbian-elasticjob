@@ -47,11 +47,8 @@ public class ElasticJobAutoConfiguration {
 		for (Map.Entry<String, SimpleJob> entry : map.entrySet()) {
 			SimpleJob simpleJob = entry.getValue();
 			ElasticJobClient annotation = simpleJob.getClass().getAnnotation(ElasticJobClient.class);
-			if (annotation == null) {
-				continue;
-			}
-
-			if (StringUtils.isBlank(annotation.cron())) {
+			
+			if (annotation == null || StringUtils.isBlank(annotation.cron())) {
 				continue;
 			}
 

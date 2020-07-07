@@ -6,7 +6,7 @@
 
 	<groupId>com.heanbian</groupId>
 	<artifactId>heanbian-elastic-job-client</artifactId>
-	<version>11.1.0</version>
+	<version>11.1.1</version>
 	<packaging>jar</packaging>
 
 	<name>heanbian-elastic-job-client</name>
