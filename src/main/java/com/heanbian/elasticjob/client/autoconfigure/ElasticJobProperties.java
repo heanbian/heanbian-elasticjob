@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * 
- * @author 马洪
+ * @author Heanbian
  *
  */
 @ConfigurationProperties(prefix = "heanbian.elasticjob")

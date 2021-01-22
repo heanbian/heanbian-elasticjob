@@ -23,7 +23,7 @@ import com.heanbian.elasticjob.client.ElasticJobClient;
 
 /**
  * 
- * @author 马洪
+ * @author Heanbian
  *
  */
 public class ElasticJobAutoConfiguration {

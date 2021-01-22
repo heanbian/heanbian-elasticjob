@@ -14,7 +14,7 @@ import com.heanbian.elasticjob.client.autoconfigure.ElasticJobProperties;
 /**
  * 启云动类或配置类使用的注解
  * 
- * @author 马洪
+ * @author Heanbian
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

@@ -1,7 +1,5 @@
 # heanbian-elasticjob
 
-说明：基于ElasticJob升级版
-
 ## 前提条件
 
 JDK11+
@@ -12,9 +10,9 @@ JDK11+
 
 ```
 <dependency>
-	<groupId>com.heanbian.block</groupId>
-	<artifactId>heanbian-elasticjob</artifactId>
-	<version>1.0.0</version>
+  <groupId>com.heanbian.block</groupId>
+  <artifactId>heanbian-elasticjob</artifactId>
+  <version>1.0.1</version>
 </dependency>
 ```
 
@@ -36,16 +34,14 @@ Spring Boot 启动类添加注解：
 Java代码片段：
 
 ```
-@ElasticJobClient(cron = "*/10 * * * * ?")
 @Component
+@ElasticJobClient(cron = "*/10 * * * * ?")
 public class TestTask implements SimpleJob {
 
 	@Override
 	public void execute(ShardingContext shardingContext) {
-		// your task
 
 	}
-
 }
 ```
 

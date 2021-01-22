@@ -6,12 +6,12 @@
 
 	<groupId>com.heanbian.block</groupId>
 	<artifactId>heanbian-elasticjob</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>heanbian-elasticjob</name>
 	<url>https://github.com/heanbian/heanbian-elasticjob</url>
-	<description>Heanbian elastic job client component.</description>
+	<description>Heanbian elasticjob component.</description>
 	<inceptionYear>2019</inceptionYear>
 
 	<licenses>

@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 
 /**
  * 
- * @author 马洪
+ * @author Heanbian
  *
  */
 @Target({ ElementType.TYPE })
