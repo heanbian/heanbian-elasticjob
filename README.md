@@ -46,4 +46,4 @@ public class TestTask implements SimpleJob {
 ```
 
 
-说明：适用于 Spring Boot 2.3.x 项目。
+说明：适用于 Spring Boot 项目。
