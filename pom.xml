@@ -6,7 +6,7 @@
 
 	<groupId>com.heanbian.block</groupId>
 	<artifactId>heanbian-elasticjob</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<packaging>jar</packaging>
 
 	<name>heanbian-elasticjob</name>
@@ -160,7 +160,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<elastic-job-lite-spring.version>2.1.5</elastic-job-lite-spring.version>
-		<spring-boot.version>2.4.2</spring-boot.version>
+		<spring-boot.version>2.4.3</spring-boot.version>
 		<arguments />
 	</properties>
 
